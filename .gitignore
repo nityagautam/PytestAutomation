@@ -6,7 +6,7 @@
 
 # Including the test results and reports
 !test_result.xml
-!test_reports.html
+!test_report.html
 
 # Excluding the other results/data folfers
 out/reports
