@@ -1,0 +1,14 @@
+# File format to ignore in git
+*.xml
+*.log
+*.html
+*.pyc
+
+# Including the test results and reports
+!test_result.xml
+!test_reports.html
+
+# Excluding the other results/data folfers
+out/reports
+out/screenshots
+**/__pycache__

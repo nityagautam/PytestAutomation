@@ -1,0 +1,16 @@
+{
+  "TEST_DATA": {
+      "IN_USE": false,
+
+      "ENV_URL": "https://google.co.in",
+      "BROWSER": "chrome",
+      "ENV_TYPE": "DEV",
+      "ENV_CREDENTIALS": {
+        "DEV": { "USERNAME":  "uname", "PASSWORD": "pwd"},
+        "TEST": { "USERNAME":  "uname", "PASSWORD": "pwd"},
+        "STAGING": { "USERNAME":  "uname", "PASSWORD": "pwd"},
+        "PRODUCTION": { "USERNAME":  "uname", "PASSWORD": "pwd"}
+      },
+      "WAIT_TIMEOUT": "10"
+  }
+}
