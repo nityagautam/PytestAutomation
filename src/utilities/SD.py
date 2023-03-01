@@ -26,7 +26,7 @@ class SeleniumDriver(Config):
 
     def __init__(self, driver):
         self.driver = driver
-        self.log = Logger().get_logger()    # Get the custom logger
+        self.log = Logger(self).get_logger()    # Get the custom logger
 
     def get_title(self):
         return self.driver.title

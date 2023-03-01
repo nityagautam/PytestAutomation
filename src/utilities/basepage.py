@@ -6,6 +6,22 @@ from src.pages.locators import ALL_LOCATORS
 
 class BasePage(SeleniumDriver, PageLocatorDict, Utility):
 
+    # ---------------------------------------------------------
+    # Note:
+    # ---------------------------------------------------------
+    # Since 'BasePage' class
+    # - takes these args during instance creation
+    #   - driver object
+    #   - config object from Config()
+    #   - logger object from Logger(config).get_logger()
+    # And,
+    #   Where ever we inherit this 'BasePage' [normally in Page Object Classes]
+    #   - All the props and methods from Config will be attached to self
+    #   - All the props and methods from Logger will be attached to self
+    #   - All the methods from Selenium driver will be attached to self
+    #   - All the methods from the Utility class will be attached to self
+    #   - Locators from the 'locators.py' for this TestPage will be attached to self
+
     def __init__(self, driver, config_obj, logger_obj):
         # ---------------------------------------------------------
         # Init the various Class
@@ -19,14 +35,6 @@ class BasePage(SeleniumDriver, PageLocatorDict, Utility):
         # ---------------------------------------------------------
         if self.__class__.__name__ in ALL_LOCATORS:
             PageLocatorDict.__init__(self, ALL_LOCATORS[self.__class__.__name__])
-
-        # ---------------------------------------------------------
-        # Note:
-        # ---------------------------------------------------------
-        # Where ever we inherit this 'BasePage' [normally in Page Object Classes]
-        # - All the methods from Selenium driver will be attached to self
-        # - All the methods from the Utility class will be attached to self
-        # - Locators from the 'locators.py' for this TestPage will be attached to self
 
     def get_page_locators_from_external_json_file(self, page_name):
         """

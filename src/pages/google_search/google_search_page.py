@@ -6,7 +6,7 @@ from src.utilities.Logger import Logger
 class GoogleSearchPage(BasePage):
 
     def __init__(self, driver, config_obj, logger_obj):
-        # Init and load from super/parent class
+        # Init and load from super/parent class (i.e. BasePage Class)
         super().__init__(driver, config_obj, logger_obj)
         self.driver = driver
         # Since we have inherited the 'BasePage'

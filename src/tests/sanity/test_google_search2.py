@@ -22,7 +22,7 @@ class TestGoogleSearch(BaseTest):
 
     def test_search_google_and_browse_first_result(self):
         # Create object for page(s)
-        self.loginPage = GoogleSearchPage(self.driver)
+        self.loginPage = GoogleSearchPage(self.driver, self.config, self.log)
 
         # Steps
         self.loginPage.search('EARTH')

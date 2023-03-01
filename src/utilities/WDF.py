@@ -46,7 +46,8 @@ class WebDriverFactory:
                 options = Options()
                 options.binary_location = driver_location
                 os.environ["webdriver.gecko.driver"] = driver_location
-                driver = webdriver.Firefox(options=options)
+                # driver = webdriver.Firefox(options=options)
+                driver = webdriver.Firefox()
 
             #elif self.browser.lower() == "chrome":
             else:
