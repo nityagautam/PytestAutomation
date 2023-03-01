@@ -1,4 +1,3 @@
-import os
 from src.utilities.SD import SeleniumDriver
 from traceback import print_stack
 from src.utilities.Utility import Utility, PageLocatorDict
@@ -7,11 +6,13 @@ from src.pages.locators import ALL_LOCATORS
 
 class BasePage(SeleniumDriver, PageLocatorDict, Utility):
 
-    def __init__(self, driver):
+    def __init__(self, driver, config_obj, logger_obj):
         # ---------------------------------------------------------
-        # Init the Selenium Driver Class
+        # Init the various Class
         # ---------------------------------------------------------
-        self.driver = driver
+        self.driver = driver            # Web driver
+        self.config = config_obj        # Configuration instance
+        self.log = logger_obj           # Logger instance
 
         # ---------------------------------------------------------
         # Load the page locators from the 'src > pages > locators.py'

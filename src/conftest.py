@@ -1,6 +1,5 @@
 import os.path
 from datetime import datetime
-
 import pytest
 from src.utilities.Logger import Logger
 from src.utilities.WDF import WebDriverFactory
@@ -8,8 +7,10 @@ from src.utilities.SD import SeleniumDriver
 from src.config.config import Config
 
 
+# Get the config
+config = Config()
 # get the logger first
-log = Logger().get_logger()
+log = Logger(config).get_logger()
 
 
 @pytest.fixture()
@@ -20,9 +21,27 @@ def setup():
 
 
 @pytest.fixture(scope="class")
+def get_logger(request):
+    log.debug("Running class level fixture get_logger")
+    if request.cls is not None:
+        request.cls.log = log
+    yield log
+    log.debug("Running class teardown for get logger")
+
+
+@pytest.fixture(scope="class")
+def get_config(request):
+    log.debug("Running class level fixture get_logger")
+    if request.cls is not None:
+        request.cls.config = config
+    yield config
+    log.debug("Running class teardown for get logger")
+
+
+@pytest.fixture(scope="class")
 def get_web_driver(request):
     log.debug("Running class level fixture get_web_driver")
-    wdf = WebDriverFactory()
+    wdf = WebDriverFactory(config_obj=config)
     driver = wdf.get_web_driver_instance()
 
     if request.cls is not None:
@@ -43,7 +62,7 @@ def take_screenshot(request):
     # Fixture to run after each function to take screenshots.
     yield
     # Function call to take screenshot.
-    screenshot_path = Config().SCREENSHOT_LOC
+    screenshot_path = config.SCREENSHOT_LOC
     screenshot_file = f"{request.node.nodeid}_{datetime.now().strftime('%d-%m-%Y_%I-%M-%S_%p')}.png"
     SeleniumDriver(request.cls.driver).take_screenshot(sc_path=os.path.join(screenshot_path, screenshot_file))
 
@@ -53,7 +72,7 @@ def take_screenshot(request):
 # =================================================================
 def pytest_html_report_title(report):
     # Fetching the report title from the 'Config.py' for pytest-html report
-    report.title = Config().APP_REPORT_TITLE
+    report.title = config.APP_REPORT_TITLE
     # [DEBUG]
     # print(report, report.__dir__())
     # print(f"RESULT: {report.results}, ERROR: {report.errors}, FAILED: {report.failed}, PASSED: {report.passed}")
@@ -67,6 +86,19 @@ def pytest_html_report_title(report):
 # =========================================================================
 @pytest.fixture(scope="session", autouse=True)
 def sanity_check(request):
+    log.info("Initiating sanity check now ...")
+    log.info("=" * 35 + "[SANITY CHECK]" + "=" * 35)
+    pass_str = '[PASS]'
+    fail_str = '[** FAIL **]'
+    fmt_str = "%-70s %s"
+
+    # CHECK FOR DRIVER LOCATION under ./resources/drivers/
+    log.info(fmt_str % ("DRIVERS IN PATH", pass_str))
+    # CHECK FOR BROWSERS IN PATH
+    log.info(fmt_str % ("BROWSERS IN PATH", pass_str))
+    # CHECK FOR APPLICATION URL STATUS
+    log.info(fmt_str % ("APPLICATION URL IS LIVE", pass_str))
+
     good_condition = True   # Just hard-coding; assuming condition is always good
     if not good_condition:
         log.debug(f"Exiting now ...\n\n")
@@ -80,8 +112,6 @@ def sanity_check(request):
 # =========================================================================
 @pytest.fixture(scope="session", autouse=False)
 def get_config(request):
-    # Create and Config class object
-    config = Config()
 
     # Log
     if config.TEST_DATA is None:

@@ -5,13 +5,13 @@ from src.utilities.Logger import Logger
 
 class GoogleSearchPage(BasePage):
 
-    log = Logger().get_logger()
-
-    def __init__(self, driver):
+    def __init__(self, driver, config_obj, logger_obj):
         # Init and load from super/parent class
-        super().__init__(driver)
+        super().__init__(driver, config_obj, logger_obj)
         self.driver = driver
         # Since we have inherited the 'BasePage'
+        # - All the props and methods from Config will be attached to self
+        # - All the props and methods from Logger will be attached to self
         # - All the methods from Selenium driver will be attached to self
         # - All the methods from the Utility class will be attached to self
         # - Locators from the 'locators.py' for 'LoginPage' will be attached to self

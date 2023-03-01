@@ -1,5 +1,4 @@
 import platform
-
 from openpyxl import load_workbook
 import json
 
@@ -15,11 +14,25 @@ class Utility:
         return False
 
     @staticmethod
+    def is_linux():
+        if platform.platform().lower() == 'linux':
+            return True
+        return False
+
+    @staticmethod
     def read_json(json_file_path):
         with open(json_file_path) as f:
             json_file = json.load(f)
         # return the object from JSON
         return json_file
+
+    @staticmethod
+    def get_app_path_from_env():
+        return False
+
+    @staticmethod
+    def search_file_recursively(file_name, base_path) -> any:
+        return False
 
 
 class PageLocatorDict(dict):

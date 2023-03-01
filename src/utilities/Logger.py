@@ -4,8 +4,13 @@ import os.path
 
 
 class Logger:
-    def __init__(self):
-        self.log_file = os.path.abspath('./out/automation.log')
+    def __init__(self, config_obj):
+        if config_obj is not None:
+            self.config = config_obj
+            self.log_file = os.path.abspath(self.config.LOG_FILE_PATH)
+        else:
+            self.log_file = os.path.abspath('./out/automation.log')
+
         self.log_level = logging.DEBUG
         self.log_format = '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
         self.log_time_format = '%m/%d/%Y %I:%M:%S %p'

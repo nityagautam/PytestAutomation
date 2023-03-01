@@ -9,7 +9,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import *
 import time
 import os
-import allure
 
 # Custom Imports
 # ================

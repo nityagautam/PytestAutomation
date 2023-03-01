@@ -1,9 +1,8 @@
-import allure
 import pytest
 from src.utilities.Logger import Logger
 
 
-@pytest.mark.usefixtures("get_web_driver", "setup")
+@pytest.mark.usefixtures("get_web_driver", "setup", "get_logger", "get_config")
 class BaseTest:
     # ------------------------------------------------------------------
     # initialisations from the fixture methods
@@ -12,19 +11,7 @@ class BaseTest:
     # ------------------------------------------------------------------
     driver = None
     config = None
-    log = Logger().get_logger()     # Get the logger
-
-    # ------------------------------------------------------------------
-    # Getting Session data for config
-    # by just passing the fixture methods name
-    # used for config extraction in the 'conftest.py'
-    # ------------------------------------------------------------------
-    def get_config_data_from_session(self, get_config):
-        self.config = get_config
-        self.log.debug(f"===> [From Base Test] Config Value: {self.config}")
-        self.log.debug(f" URL  : {self.config.ENV_URL}")
-        self.log.debug(f" TYPE : {self.config.ENV_TYPE}")
-        self.log.debug(f" FROM TEST_DATA: {self.config.TEST_DATA}")
+    log = None
 
     # ------------------------------------------------------------------
     # Do anything extra for each test class
