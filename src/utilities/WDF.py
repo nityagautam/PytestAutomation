@@ -36,6 +36,7 @@ class WebDriverFactory:
         Get WebDriver Instance based on the browser configuration
         :return 'WebDriver Instance':
         """
+        # Note: for an easy setup, please add the web-drivers executables in the system path
         driver = None
 
         try:
@@ -49,7 +50,6 @@ class WebDriverFactory:
                 # driver = webdriver.Firefox(options=options)
                 driver = webdriver.Firefox()
 
-            #elif self.browser.lower() == "chrome":
             else:
                 # Set Chrome driver
                 driver_location = os.path.abspath(self.config.CHROME_DRIVER_PATH)
